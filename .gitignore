@@ -6,3 +6,7 @@ dist/
 .nuget-packages/
 .tmp/
 *.user
+*.md
+!README.md
+!CONTRIBUTOR.md
+!LICENCE.md
