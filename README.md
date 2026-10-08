@@ -2,7 +2,7 @@
 
 A lightweight Windows 11 taskbar overlay for actual CPU and GPU load and temperature readings. The app uses WPF, .NET 10, [LibreHardwareMonitorLib 0.9.6](https://www.nuget.org/packages/LibreHardwareMonitorLib/0.9.6), and documented Win32 window APIs. This installation runs with Administrator privileges because CPU temperature sensors on some systems require driver access. Sensors without a readable value still show `N/A`.
 
-Open-source project under the [MIT License](LICENCE.md). Contributions are welcome; see [CONTRIBUTOR.md](CONTRIBUTOR.md).
+Open-source project under the [MIT License](LICENCE.md). Contributions are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Build and install
 

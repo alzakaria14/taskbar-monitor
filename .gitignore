@@ -8,5 +8,5 @@ dist/
 *.user
 *.md
 !README.md
-!CONTRIBUTOR.md
+!CONTRIBUTING.md
 !LICENCE.md
