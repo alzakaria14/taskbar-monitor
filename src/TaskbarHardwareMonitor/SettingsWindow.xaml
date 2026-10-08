@@ -1,0 +1,3 @@
+<Window x:Class="TaskbarHardwareMonitor.SettingsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Taskbar Hardware Monitor — Settings" Width="470" Height="690" MinWidth="400" MinHeight="500" WindowStartupLocation="CenterScreen" Background="#111827" Foreground="#F3F4F6" FontFamily="Segoe UI" FontSize="13">
+  <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="18"><StackPanel x:Name="Fields" /></ScrollViewer>
+</Window>

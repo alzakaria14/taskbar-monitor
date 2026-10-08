@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>TaskbarHardwareMonitor</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TaskbarHardwareMonitor.Core\TaskbarHardwareMonitor.Core.csproj" />
+    <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.6" Condition="'$(OfflineCompileCheck)' != 'true'" />
+    <Compile Include="..\..\tests\OfflineHardwareApiShim.cs" Link="OfflineHardwareApiShim.cs" Condition="'$(OfflineCompileCheck)' == 'true'" />
+  </ItemGroup>
+</Project>

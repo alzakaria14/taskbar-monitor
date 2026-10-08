@@ -1,0 +1,9 @@
+<Window x:Class="TaskbarHardwareMonitor.OverlayWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="False" ShowActivated="False" Focusable="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight" Topmost="True">
+  <Border x:Name="Panel" CornerRadius="4" Padding="5,2" Background="#660D1117">
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+      <TextBlock x:Name="CpuText" Foreground="#7DD3FC" FontFamily="Segoe UI" FontSize="11" />
+      <TextBlock Text="  |  " Foreground="#B8C3D1" FontFamily="Segoe UI" FontSize="11" />
+      <TextBlock x:Name="GpuText" Foreground="#5EEAD4" FontFamily="Segoe UI" FontSize="11" />
+    </StackPanel>
+  </Border>
+</Window>

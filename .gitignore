@@ -1,1 +1,8 @@
-*.md
+**/bin/
+**/obj/
+dist/
+.build-appdata/
+.dotnet-home/
+.nuget-packages/
+.tmp/
+*.user
