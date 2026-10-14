@@ -105,9 +105,9 @@ public sealed class HardwareMonitorService : IDisposable
         var gpu = ChooseDevice(devices.Where(h => h.HardwareType != HardwareType.Cpu), settings.GpuDevice);
         return new SensorReading(
             Value(cpu, SensorType.Load, settings.CpuLoadSensor, "total"),
-            Value(cpu, SensorType.Temperature, settings.CpuTemperatureSensor, "package", "core (tctl/tdie)", "core average"),
+            Value(cpu, SensorType.Temperature, settings.CpuTemperatureSensor, "core max", "core (tctl/tdie)", "package", "core average"),
             GpuUtilization(gpu, settings.GpuLoadSensor),
-            Value(gpu, SensorType.Temperature, settings.GpuTemperatureSensor, "core", "gpu core"));
+            Value(gpu, SensorType.Temperature, settings.GpuTemperatureSensor, "hot spot", "hotspot", "junction", "core", "gpu core"));
     }
 
     private static IHardware? ChooseDevice(IEnumerable<IHardware> devices, string id)

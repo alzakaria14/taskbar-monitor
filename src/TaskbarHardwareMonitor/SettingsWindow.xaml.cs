@@ -89,9 +89,9 @@ public partial class SettingsWindow : Window
         bool wasLoading = _loading;
         _loading = true;
         SetOptions(_cpuLoadCombo, SensorOptions(cpu?.LoadSensors), _settings.CpuLoadSensor);
-        SetOptions(_cpuTempCombo, SensorOptions(cpu?.TemperatureSensors), _settings.CpuTemperatureSensor);
+        SetOptions(_cpuTempCombo, SensorOptions(cpu?.TemperatureSensors, "Automatic (CPU hottest core)"), _settings.CpuTemperatureSensor);
         SetOptions(_gpuLoadCombo, SensorOptions(gpu?.LoadSensors, "Automatic (highest D3D engine)"), _settings.GpuLoadSensor);
-        SetOptions(_gpuTempCombo, SensorOptions(gpu?.TemperatureSensors), _settings.GpuTemperatureSensor);
+        SetOptions(_gpuTempCombo, SensorOptions(gpu?.TemperatureSensors, "Automatic (GPU hot spot)"), _settings.GpuTemperatureSensor);
         _loading = wasLoading;
     }
 

@@ -49,6 +49,10 @@ Check(OverlayPosition.Calculate(primary, bar, 180, 24, -25, 0, new PixelRect(170
 var cpuSamples = new[] { new SensorSample("package", "CPU Package", null), new SensorSample("average", "Core Average", 54.2f) };
 Check(SensorSelection.Select(cpuSamples, "", "package", "core average") == 54.2f, "automatic sensor skips missing reading");
 Check(SensorSelection.Select(cpuSamples, "package", "core average") is null, "explicit sensor selection remains exact");
+var cpuTemperatureSamples = new[] { new SensorSample("package", "CPU Package", 78f), new SensorSample("max", "Core Max", 86f) };
+Check(SensorSelection.Select(cpuTemperatureSamples, "", "core max", "package") == 86f, "automatic CPU temperature uses hottest core");
+var gpuTemperatureSamples = new[] { new SensorSample("core", "GPU Core", 65f), new SensorSample("hotspot", "GPU Hot Spot", 82f) };
+Check(SensorSelection.Select(gpuTemperatureSamples, "", "hot spot", "core") == 82f, "automatic GPU temperature uses hot spot");
 var gpuSamples = new[]
 {
     new SensorSample("core", "GPU Core", 52.3f),
