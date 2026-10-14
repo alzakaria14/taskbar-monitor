@@ -24,7 +24,6 @@ public sealed class TaskbarOverlayService
             return;
         }
         var handle = new WindowInteropHelper(_window).EnsureHandle();
-        if (Win32Interop.ShouldYieldToForeground(monitor, handle)) { _window.Hide(); return; }
         var scale = Win32Interop.GetDpiForWindow(handle) / 96.0;
         if (scale <= 0) scale = 1;
         _window.Measure(new System.Windows.Size(double.PositiveInfinity, double.PositiveInfinity));

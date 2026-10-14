@@ -39,8 +39,6 @@ public static class Win32Interop
     [DllImport("user32.dll")] private static extern bool GetWindowRect(nint hwnd, out Rect rect);
     [DllImport("user32.dll")] private static extern bool IsWindowVisible(nint hwnd);
     [DllImport("user32.dll", CharSet = CharSet.Unicode)] private static extern nint FindWindowEx(nint parent, nint after, string? className, string? title);
-    [DllImport("user32.dll")] private static extern nint GetForegroundWindow();
-    [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(nint hwnd, out uint processId);
     [DllImport("user32.dll")] internal static extern uint GetDpiForWindow(nint hwnd);
     [DllImport("user32.dll", EntryPoint = "GetWindowLongPtrW")] private static extern nint GetWindowLongPtr(nint hwnd, int index);
     [DllImport("user32.dll", EntryPoint = "SetWindowLongPtrW")] private static extern nint SetWindowLongPtr(nint hwnd, int index, nint value);
@@ -84,23 +82,4 @@ public static class Win32Interop
         return found is not null;
     }
 
-    internal static bool ShouldYieldToForeground(DisplayMonitor monitor, nint taskbarWindow)
-    {
-        var foreground = GetForegroundWindow();
-        if (foreground == 0 || foreground == taskbarWindow) return false;
-        var className = new StringBuilder(128);
-        GetClassName(foreground, className, className.Capacity);
-        if (className.ToString() is "Progman" or "WorkerW" or "Shell_TrayWnd" or "Shell_SecondaryTrayWnd") return false;
-        try
-        {
-            GetWindowThreadProcessId(foreground, out var pid);
-            using var process = System.Diagnostics.Process.GetProcessById((int)pid);
-            if (process.ProcessName is "StartMenuExperienceHost" or "ShellExperienceHost") return true;
-        }
-        catch (ArgumentException) { }
-        catch (System.ComponentModel.Win32Exception) { }
-        if (!GetWindowRect(foreground, out var bounds)) return false;
-        var rect = bounds.Pixels;
-        return rect.Left <= monitor.Bounds.Left && rect.Top <= monitor.Bounds.Top && rect.Right >= monitor.Bounds.Right && rect.Bottom >= monitor.Bounds.Bottom;
-    }
 }
