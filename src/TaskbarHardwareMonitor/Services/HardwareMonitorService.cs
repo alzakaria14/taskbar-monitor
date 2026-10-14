@@ -106,7 +106,7 @@ public sealed class HardwareMonitorService : IDisposable
         return new SensorReading(
             Value(cpu, SensorType.Load, settings.CpuLoadSensor, "total"),
             Value(cpu, SensorType.Temperature, settings.CpuTemperatureSensor, "package", "core (tctl/tdie)", "core average"),
-            Value(gpu, SensorType.Load, settings.GpuLoadSensor, "core", "gpu core"),
+            GpuUtilization(gpu, settings.GpuLoadSensor),
             Value(gpu, SensorType.Temperature, settings.GpuTemperatureSensor, "core", "gpu core"));
     }
 
@@ -119,6 +119,14 @@ public sealed class HardwareMonitorService : IDisposable
         var sensors = AllSensors(hardware).Where(s => s.SensorType == type)
             .Select(s => new SensorSample(s.Identifier.ToString(), s.Name, s.Value));
         return SensorSelection.Select(sensors, id, preferred);
+    }
+
+    private static float? GpuUtilization(IHardware? hardware, string selectedId)
+    {
+        if (hardware is null) return null;
+        var sensors = AllSensors(hardware).Where(s => s.SensorType == SensorType.Load)
+            .Select(s => new SensorSample(s.Identifier.ToString(), s.Name, s.Value));
+        return SensorSelection.SelectTaskManagerGpuUtilization(sensors, selectedId);
     }
 
     private AppSettings SnapshotSettings()

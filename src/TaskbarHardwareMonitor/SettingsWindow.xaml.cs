@@ -90,12 +90,12 @@ public partial class SettingsWindow : Window
         _loading = true;
         SetOptions(_cpuLoadCombo, SensorOptions(cpu?.LoadSensors), _settings.CpuLoadSensor);
         SetOptions(_cpuTempCombo, SensorOptions(cpu?.TemperatureSensors), _settings.CpuTemperatureSensor);
-        SetOptions(_gpuLoadCombo, SensorOptions(gpu?.LoadSensors), _settings.GpuLoadSensor);
+        SetOptions(_gpuLoadCombo, SensorOptions(gpu?.LoadSensors, "Automatic (highest D3D engine)"), _settings.GpuLoadSensor);
         SetOptions(_gpuTempCombo, SensorOptions(gpu?.TemperatureSensors), _settings.GpuTemperatureSensor);
         _loading = wasLoading;
     }
 
-    private static IEnumerable<Option> SensorOptions(IReadOnlyList<SensorChoice>? sensors) => new[] { new Option("Automatic", "") }.Concat(sensors?.Select(s => new Option(s.Name, s.Id)) ?? []);
+    private static IEnumerable<Option> SensorOptions(IReadOnlyList<SensorChoice>? sensors, string automaticLabel = "Automatic") => new[] { new Option(automaticLabel, "") }.Concat(sensors?.Select(s => new Option(s.Name, s.Id)) ?? []);
 
     private static void SetOptions(ComboBox box, IEnumerable<Option> options, string selected)
     {

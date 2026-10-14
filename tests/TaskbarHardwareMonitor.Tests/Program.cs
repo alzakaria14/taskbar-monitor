@@ -49,5 +49,15 @@ Check(OverlayPosition.Calculate(primary, bar, 180, 24, -25, 0, new PixelRect(170
 var cpuSamples = new[] { new SensorSample("package", "CPU Package", null), new SensorSample("average", "Core Average", 54.2f) };
 Check(SensorSelection.Select(cpuSamples, "", "package", "core average") == 54.2f, "automatic sensor skips missing reading");
 Check(SensorSelection.Select(cpuSamples, "package", "core average") is null, "explicit sensor selection remains exact");
+var gpuSamples = new[]
+{
+    new SensorSample("core", "GPU Core", 52.3f),
+    new SensorSample("d3d3d", "D3D 3D", 98.2f),
+    new SensorSample("copy", "D3D Copy", 12.1f),
+    new SensorSample("power", "GPU Power", 87.0f)
+};
+Check(SensorSelection.SelectTaskManagerGpuUtilization(gpuSamples, "") == 98.2f, "automatic GPU utilization uses busiest D3D engine");
+Check(SensorSelection.SelectTaskManagerGpuUtilization(gpuSamples, "core") == 52.3f, "explicit GPU sensor remains exact");
+Check(SensorSelection.SelectTaskManagerGpuUtilization(new[] { new SensorSample("core", "GPU Core", 101.5f) }, "") == 100f, "GPU utilization is capped at 100 percent");
 Check(!new StartupService().IsStartupEnabled(), "Task Scheduler rejects a task for a different executable");
 Console.WriteLine($"{passed} tests passed.");
